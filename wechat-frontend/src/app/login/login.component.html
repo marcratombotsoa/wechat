@@ -16,7 +16,7 @@
   <md-grid-tile>
   	<button md-raised-button class="full-width" (click)="connect(username)">Connect</button>
   </md-grid-tile>
-  <md-grid-tile>
+  <md-grid-tile *ngIf="message !== undefined && message !== null">
   	<span class="error-message">
   		{{message}}
   	</span>
