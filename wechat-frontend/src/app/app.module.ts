@@ -7,6 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { UserService } from './shared/service/user.service';
+import { ChannelUtil } from './shared/service/channel-util';
+import { StompService } from 'ng2-stomp-service';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,7 @@ import { UserService } from './shared/service/user.service';
     AppRoutingModule,
     BrowserAnimationsModule
   ],
-  providers: [UserService],
+  providers: [UserService, ChannelUtil, StompService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -4,6 +4,10 @@ import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import { UserService } from '../../shared/service/user.service';
 import { User } from '../../shared/model/user';
+import { Message } from '../../shared/model/message';
+import { StompService } from 'ng2-stomp-service';
+import { ChannelUtil } from '../../shared/service/channel-util';
+import { settings } from '../../shared/util/settings';
 
 @Component( {
     selector: 'app-home',
@@ -12,14 +16,24 @@ import { User } from '../../shared/model/user';
 } )
 export class HomeComponent implements OnInit {
 
+    private receiver: string;
     private username: string;
-
     private users: Array<User> = [];
-    private messages: Array<string> = ["Hi", "how are you?", "good", "and you?","Fine"];
+    private messages: Array<Message> = [];
+    private filteredMessages: Array<Message> = [];
+    private newMessage: string;
+    private channel: string;
 
-    constructor( private router: Router, private userService: UserService ) {}
+    constructor( private router: Router, private userService: UserService
+            , private stompService: StompService ) {
+        stompService.configure({
+            host: settings.baseUrl + '/wechat',
+            queue: {'init': false}
+        });
+    }
 
     ngOnInit() {
+        this.messages = [];
         this.username = sessionStorage.getItem( "user" );
         if ( this.username == null || this.username === '' ) {
             this.router.navigate( ['/'] );
@@ -27,9 +41,62 @@ export class HomeComponent implements OnInit {
             this.userService.findUsers().subscribe(
                 res => {
                     this.users = res.json();
+                    this.initUserEvents();
                 }
             );
         }
+    }
+    
+    initUserEvents() {
+        this.stompService.startConnect().then(
+            () => {
+               this.stompService.done('init');
+               this.stompService.subscribe('/channel/login', res => {
+                   if (res.username !== this.username) {
+                       this.users.push(res);
+                       this.subscribeToOtherUser(res);
+                   }
+               });
+               
+               this.stompService.subscribe('/channel/logout', res => {
+                   this.users = this.users.filter(function (item) {
+                       return item.username !== res.username;
+                   });
+               });
+               
+               this.subscribeToOtherUsers(this.users, this.username);
+            });
+    }
+    
+    subscribeToOtherUsers(users, username) {
+        let filteredUsers:Array<any> = users.filter(user => username !== user.username);
+        filteredUsers.forEach(user => this.subscribeToOtherUser(user));
+    }
+    
+    subscribeToOtherUser(otherUser): string {
+        const channelId = ChannelUtil.createChannel(this.username, otherUser.username);
+        this.stompService.subscribe('/channel/chat/' + channelId, res => {
+            this.messages.push(res);
+            this.filterMessages();
+        });
+        
+        return channelId;
+    }
+    
+    startChatWith(otherUser) {
+        this.receiver = otherUser.username;
+        this.channel = ChannelUtil.createChannel(this.username, otherUser.username);
+        this.filterMessages();
+    }
+    
+    sendMessage() {
+        this.stompService.send('/app/messages', {'channel': this.channel
+            , 'sender': this.username, 'content': this.newMessage});
+        this.newMessage = '';
+    }
+
+    filterMessages() {
+        this.filteredMessages = this.messages.filter(message => this.channel === message.channel);
     }
 
     logout() {
@@ -37,11 +104,16 @@ export class HomeComponent implements OnInit {
         .subscribe(
             res => {
                 sessionStorage.removeItem( "user" );
+                this.stompService.disconnect();
                 this.username = null;
                 this.router.navigate( ['/'] );
             },
             error => {
                 console.log(error._body);
             });
+    }
+    
+    getOtherUsers(): Array<User> {
+        return this.users.filter(user => user.username !== this.username);
     }
 }
