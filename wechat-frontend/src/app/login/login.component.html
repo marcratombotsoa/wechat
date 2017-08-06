@@ -1,0 +1,5 @@
+<div>
+  <input type="text" [(ngModel)]="username" (keyup)="$event.keyCode == 13 ? connect(username) : null"/> 
+  <button (click)="connect(username)">Connect</button>
+  {{message}}
+</div>
