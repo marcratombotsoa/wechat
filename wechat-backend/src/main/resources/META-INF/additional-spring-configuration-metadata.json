@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "cors.authorized.client",
+  "type": "java.lang.String",
+  "description": "Authorized client URL to connect to the backend app"
+}]}
