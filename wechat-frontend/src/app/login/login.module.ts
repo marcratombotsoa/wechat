@@ -5,12 +5,20 @@ import { RouterModule } from '@angular/router';
 
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
+import { 
+    MdGridListModule,
+    MdInputModule,
+    MdButtonModule
+} from '@angular/material';
 
 @NgModule({
   imports: [
     CommonModule,
     LoginRoutingModule,
-    FormsModule
+    FormsModule,
+    MdGridListModule,
+    MdInputModule,
+    MdButtonModule
   ],
   declarations: [LoginComponent]
 })

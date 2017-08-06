@@ -12,6 +12,9 @@ export class HomeComponent implements OnInit {
 
     private username: string;
 
+    private users: Array<string> = ["Kobe", "Lebron", "Stephen", "Michael"];
+    private messages: Array<string> = ["Hi", "how are you?", "good", "and you?","Fine"];
+
     constructor( private router: Router ) {}
 
     ngOnInit() {

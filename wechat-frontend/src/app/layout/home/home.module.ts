@@ -3,12 +3,24 @@ import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home.component';
 import { HomeRoutingModule } from './home-routing.module';
 import { FormsModule } from '@angular/forms';
+import { 
+    MdGridListModule,
+    MdInputModule,
+    MdButtonModule,
+    MdListModule,
+    MdIconModule
+} from '@angular/material';
 
 @NgModule({
   imports: [
     CommonModule,
     HomeRoutingModule,
-    FormsModule
+    FormsModule,
+    MdGridListModule,
+    MdInputModule,
+    MdButtonModule,
+    MdListModule,
+    MdIconModule
   ],
   declarations: [HomeComponent]
 })

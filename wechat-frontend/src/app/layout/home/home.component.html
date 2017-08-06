@@ -1,3 +1,45 @@
-<div>
-  Welcome, {{username}} | <a (click)="logout()" class="hand">Logout</a>
+<div class="main-container">
+	<div class="header-container">
+		<md-grid-list cols="3" rowHeight="100px">
+			<md-grid-tile>
+				<div style="position: absolute; left: 0px;">
+					<img src="assets/img/logo.png" height="80px">
+				</div>
+			</md-grid-tile>
+			<md-grid-tile>
+				<div class="user-header">Other user</div>
+			</md-grid-tile>
+			<md-grid-tile class="user-header">
+				Welcome, {{username}} | <a (click)="logout()" class="hand">Logout</a>
+			</md-grid-tile>
+		</md-grid-list>
+	</div>
+	<table class="chat-table">
+		<tr>
+			<td rowspan="2" class="user-list-col">
+				<md-list>
+				  	<md-list-item *ngFor="let user of users" class="user-item">
+					    <md-icon md-list-icon>person</md-icon>
+					    <h4 md-line>{{user}}</h4>
+					  </md-list-item>
+				</md-list>
+			</td>
+			<td class="message-col">
+				<md-list class="message-container">
+				  	<md-list-item *ngFor="let message of messages" class="message-item">
+					    <md-icon md-list-icon>chat</md-icon>
+					    <h4 md-line>{{message}}</h4>
+					  </md-list-item>
+				</md-list>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<md-input-container style="width: 85%;">
+					<input mdInput placeholder="Message" [disabled]="false" class="message-input">
+				</md-input-container>
+				<button md-raised-button [disabled]="false" style="width: 12%;">Send</button>
+			</td>
+		</tr>
+	</table>
 </div>
