@@ -13,7 +13,7 @@
 
 .header-container {
 	width: 100%;
-	box-shadow: inset 0 0 5px;
+	box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
 	border-radius: 5px;
 }
 
@@ -21,6 +21,16 @@
 	font-size: 1.3vw;
 	font-family: verdana;
 	color: #202080;
+}
+
+.receiver-header {
+	background: rgba(150,150,150, 0.3);
+	font-size: 1.3vw;
+	font-family: verdana;
+	color: #202080;
+	box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+	border-radius: 5px;
+	padding: 10px;
 }
 
 .chat-table {
@@ -41,21 +51,19 @@
 }
 
 .user-item {
-	box-shadow: inset 0 0 5px;
-	background-color: rgba(80,80,80, 0.4);
+	box-shadow: inset 0 0 5px rgba(80,80,80, 0.2);;
+	background-color: rgba(80,80,80, 0.2);
+	cursor: pointer;
+}
+
+.user-item-highlight {
+	box-shadow: inset 0 0 5px rgba(50,50,50, 0.4);
+	background-color: rgba(170,170,170, 0.4);
+	cursor: pointer;
 }
 
 .message-item {
-	box-shadow: inset 0 0 5px;
-	background-color: rgba(80,150,220, 0.4);
-	border-radius: 5px;
-	margin-top: 5px;
-	margin-left: 10px;
-}
-
-.other-message-item {
-	box-shadow: inset 0 0 5px;
-	background-color: rgba(150,150,150, 0.4);
+	box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
 	border-radius: 5px;
 	margin-top: 5px;
 	margin-left: 10px;
@@ -64,7 +72,8 @@
 .message-container {
 	height: 400px;
 	overflow-x: hidden;
-	overflow-y: scroll;
+	overflow-y: auto;
+	padding-bottom: 60px;
 }
 
 .message-input {

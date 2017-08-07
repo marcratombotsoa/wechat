@@ -8,7 +8,8 @@ import {
     MdInputModule,
     MdButtonModule,
     MdListModule,
-    MdIconModule
+    MdIconModule,
+    MdSnackBarModule
 } from '@angular/material';
 
 @NgModule({
@@ -20,7 +21,8 @@ import {
     MdInputModule,
     MdButtonModule,
     MdListModule,
-    MdIconModule
+    MdIconModule,
+    MdSnackBarModule
   ],
   declarations: [HomeComponent]
 })
