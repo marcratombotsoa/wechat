@@ -17,7 +17,7 @@
 	</div>
 	<table class="chat-table">
 		<tr>
-			<td rowspan="2" class="user-list-col">
+			<td rowspan="2" class="user-list-col cell-border">
 				<md-list>
 				  	<md-list-item *ngFor="let user of getOtherUsers()" class="user-item"
 				  		[style.background]="user.username === receiver ? 'rgba(170,170,170, 0.2)':'rgba(80,80,80, 0.2)'"
@@ -27,7 +27,7 @@
 					  </md-list-item>
 				</md-list>
 			</td>
-			<td class="message-col">
+			<td class="message-col cell-border">
 				<md-list id="msg-container" class="message-container">
 				  	<md-list-item *ngFor="let message of filteredMessages" 
 				  		class="message-item" [style.background]="message.sender === username ? 'rgba(80,150,220, 0.4)':'rgba(150,150,150, 0.3)'">
@@ -38,7 +38,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td style="border: 2px solid #aaa; padding: 5px;">
+			<td class="cell-border">
 				<md-input-container style="width: 85%;">
 					<input mdInput placeholder="New message" 
 						[disabled]="channel === null || channel === undefined" class="message-input"

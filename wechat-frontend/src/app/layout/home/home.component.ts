@@ -133,7 +133,7 @@ export class HomeComponent implements OnInit {
     }
     
     showNotification(message: Message) {
-        let snackBarRef = this.snackBar.open('New message from ' + message.sender, 'Show');
+        let snackBarRef = this.snackBar.open('New message from ' + message.sender, 'Show', {duration: 3000});
         
         snackBarRef.onAction().subscribe(() => {
             console.log('start chat with ' + message.sender);
