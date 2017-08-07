@@ -100,12 +100,14 @@ export class HomeComponent implements OnInit {
     }
     
     sendMessage() {
-        this.stompService.send('/app/messages', {'channel': this.channel
-            , 'sender': this.username, 'content': this.newMessage});
-        this.newMessage = '';
-        
-        var msgContainer = document.getElementById("msg-container");
-        msgContainer.scrollTop = msgContainer.scrollHeight;
+        if (this.newMessage) {
+            this.stompService.send('/app/messages', {'channel': this.channel
+                , 'sender': this.username, 'content': this.newMessage});
+            this.newMessage = '';
+            
+            var msgContainer = document.getElementById("msg-container");
+            msgContainer.scrollTop = msgContainer.scrollHeight;
+        }
     }
 
     filterMessages() {

@@ -19,9 +19,11 @@
 		<tr>
 			<td rowspan="2" class="user-list-col">
 				<md-list>
-				  	<md-list-item *ngFor="let user of getOtherUsers()" class="user-item">
-					    <md-icon md-list-icon (click)="startChatWith(user)">person</md-icon>
-					    <h4 md-line (click)="startChatWith(user)">{{user.username}}</h4>
+				  	<md-list-item *ngFor="let user of getOtherUsers()" class="user-item"
+				  		[style.background]="user.username === receiver ? 'rgba(170,170,170, 0.2)':'rgba(80,80,80, 0.2)'"
+				  		 (click)="startChatWith(user)">
+					    <md-icon md-list-icon>person</md-icon>
+					    <h4 md-line>{{user.username}}</h4>
 					  </md-list-item>
 				</md-list>
 			</td>
@@ -36,7 +38,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td>
+			<td style="border: 2px solid #aaa; padding: 5px;">
 				<md-input-container style="width: 85%;">
 					<input mdInput placeholder="New message" 
 						[disabled]="channel === null || channel === undefined" class="message-input"
