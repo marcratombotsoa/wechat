@@ -23,6 +23,7 @@ export class UsersListComponent implements OnInit {
     
     users: Array<User> = [];
     channel: string;
+    receiver: string;
     
     constructor(private userService: UserService, private stompService: StompService,
             private channelService: ChannelService, private snackBar: MdSnackBar
@@ -44,6 +45,7 @@ export class UsersListComponent implements OnInit {
         console.log(user);
         const channelId = ChannelService.createChannel(this.username, user.username);
         this.channelService.refreshChannel(channelId);
+        this.receiver = user.username;
         this.receiverUpdated.emit(user.username);
     }
     
@@ -97,6 +99,7 @@ export class UsersListComponent implements OnInit {
         let snackBarRef = this.snackBar.open('New message from ' + message.sender, 'Show', {duration: 3000});
         
         snackBarRef.onAction().subscribe(() => {
+            this.receiver = message.sender;
             this.receiverUpdated.emit(message.sender);
             this.channel = ChannelService.createChannel(this.username, message.sender);
             this.channelService.refreshChannel(this.channel);
