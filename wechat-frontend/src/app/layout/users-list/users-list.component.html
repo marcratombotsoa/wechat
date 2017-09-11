@@ -1,0 +1,8 @@
+<md-list>
+  	<md-list-item *ngFor="let user of getOtherUsers()" class="user-item"
+  		[style.background]="'rgba(170, 170, 170, 0.2)'"
+  		 (click)="startChatWithUser(user)">
+	    <md-icon md-list-icon>person</md-icon>
+	    <h4 md-line>{{user.username}}</h4>
+	  </md-list-item>
+</md-list>

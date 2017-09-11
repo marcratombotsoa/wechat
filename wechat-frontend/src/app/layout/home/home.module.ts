@@ -3,26 +3,18 @@ import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home.component';
 import { HomeRoutingModule } from './home-routing.module';
 import { FormsModule } from '@angular/forms';
-import { 
-    MdGridListModule,
-    MdInputModule,
-    MdButtonModule,
-    MdListModule,
-    MdIconModule,
-    MdSnackBarModule
-} from '@angular/material';
+import { SharedModule } from '../../shared/module/shared.module';
+import { UsersListModule } from '../users-list/users-list.module';
+import { MessagesModule } from '../messages/messages.module';
 
 @NgModule({
   imports: [
     CommonModule,
     HomeRoutingModule,
     FormsModule,
-    MdGridListModule,
-    MdInputModule,
-    MdButtonModule,
-    MdListModule,
-    MdIconModule,
-    MdSnackBarModule
+    SharedModule,
+    UsersListModule,
+    MessagesModule
   ],
   declarations: [HomeComponent]
 })

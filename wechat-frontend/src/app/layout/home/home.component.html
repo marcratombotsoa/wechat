@@ -7,7 +7,7 @@
 				</div>
 			</md-grid-tile>
 			<md-grid-tile>
-				<div *ngIf="receiver !== null && receiver !== undefined" class="receiver-header">Talk to {{receiver}}</div>
+				<div *ngIf="receiver !== null && receiver !== undefined && receiver !== ''" class="receiver-header">Talk to {{receiver}}</div>
 			</md-grid-tile>
 			<md-grid-tile class="user-header">
 				<button md-raised-button>Welcome, {{username}}</button>
@@ -15,38 +15,19 @@
 			</md-grid-tile>
 		</md-grid-list>
 	</div>
-	<table class="chat-table">
-		<tr>
-			<td rowspan="2" class="user-list-col cell-border">
-				<md-list>
-				  	<md-list-item *ngFor="let user of getOtherUsers()" class="user-item"
-				  		[style.background]="user.username === receiver ? 'rgba(170,170,170, 0.2)':'rgba(80,80,80, 0.2)'"
-				  		 (click)="startChatWith(user)">
-					    <md-icon md-list-icon>person</md-icon>
-					    <h4 md-line>{{user.username}}</h4>
-					  </md-list-item>
-				</md-list>
-			</td>
-			<td class="message-col cell-border">
-				<md-list id="msg-container" class="message-container">
-				  	<md-list-item *ngFor="let message of filteredMessages" 
-				  		class="message-item" [style.background]="message.sender === username ? 'rgba(80,150,220, 0.4)':'rgba(150,150,150, 0.3)'">
-					    <md-icon md-list-icon>chat</md-icon>
-					    <h4 md-line><b>{{message.sender === username ? 'You': message.sender}}</b>: {{message.content}}</h4>
-					  </md-list-item>
-				</md-list>
-			</td>
-		</tr>
-		<tr>
-			<td class="cell-border">
-				<md-input-container style="width: 85%;">
-					<input mdInput placeholder="New message" 
-						[disabled]="channel === null || channel === undefined" class="message-input"
-						 [(ngModel)]="newMessage" 
-	  					(keyup)="$event.keyCode == 13 ? sendMessage() : null">
-				</md-input-container>
-				<button md-raised-button [disabled]="channel === null || channel === undefined" style="width: 12%;" (click)="sendMessage()">Send</button>
-			</td>
-		</tr>
-	</table>
+	
+	<md-grid-list class="chat-table" cols="8" rowHeight="550" gutterSize="20">
+	  <md-grid-tile
+	  	  class="user-list-col wt-justify cell-border"
+	      [colspan]="2"
+	      [style.vertical-align]="'top'">
+			<wt-userlist [username]="username" class="user-container" (receiverUpdated)="onReceiverChange($event)">
+			</wt-userlist>
+	  </md-grid-tile>
+	  <md-grid-tile
+	  	  class="wt-justify cell-border"
+	  	  [colspan]="6">
+	    	<wt-messages [username]="username" class="message-wrapper"></wt-messages>
+	  </md-grid-tile>
+	</md-grid-list>
 </div>
