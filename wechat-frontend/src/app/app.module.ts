@@ -11,6 +11,25 @@ import { ChannelService } from './shared/service/channel.service';
 import { StompService } from 'ng2-stomp-service';
 import { MessageService } from "app/shared/service/message.service";
 
+import { SocialLoginModule, AuthServiceConfig
+    , GoogleLoginProvider, FacebookLoginProvider
+    } from "angular4-social-login";
+ 
+let config = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider("823898676621-427jhcjug96ijmbt9il0h9chd8norbdk.apps.googleusercontent.com")
+  },
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider("131571760819154")
+  }
+]);
+
+export function socialConfig() {
+    return config;
+}
+
 @NgModule({
   declarations: [
     AppComponent
@@ -20,9 +39,14 @@ import { MessageService } from "app/shared/service/message.service";
     FormsModule,
     HttpModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    SocialLoginModule
   ],
-  providers: [UserService, ChannelService, StompService, MessageService],
+  providers: [UserService, ChannelService, StompService, MessageService
+              , {
+      provide: AuthServiceConfig,
+      useFactory: socialConfig
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

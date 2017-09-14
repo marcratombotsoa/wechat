@@ -16,6 +16,17 @@
   <md-grid-tile>
   	<button md-raised-button class="full-width" (click)="connect(username)">Connect</button>
   </md-grid-tile>
+  <md-grid-tile>
+  	<div class="login-header">
+	  	Or Login with 
+	</div>
+  	<button md-icon-button (click)="signInWithGoogle()">
+  		<img src="assets/img/social-google.png" height="100%">
+  	</button>
+  	<button md-icon-button (click)="signInWithFB()">
+  		<img src="assets/img/social-fb.png" height="100%">
+  	</button>
+  </md-grid-tile>
   <md-grid-tile *ngIf="message !== undefined && message !== null">
   	<span class="error-message">
   		{{message}}

@@ -8,6 +8,7 @@ import { Message } from '../../shared/model/message';
 import { StompService } from 'ng2-stomp-service';
 import { ChannelService } from '../../shared/service/channel.service';
 import { settings } from '../../shared/util/settings';
+import { AuthService } from "angular4-social-login";
 
 @Component( {
     selector: 'wt-home',
@@ -20,7 +21,7 @@ export class HomeComponent implements OnInit {
     private username: string;
 
     constructor( private router: Router, private userService: UserService
-            , private stompService: StompService ) {
+            , private stompService: StompService, private authService: AuthService ) {
         stompService.configure({
             host: settings.baseUrl + '/wechat',
             queue: {'init': false}
@@ -42,13 +43,26 @@ export class HomeComponent implements OnInit {
         this.userService.logout({'id': null, 'username': this.username})
         .subscribe(
             res => {
-                sessionStorage.removeItem( "user" );
-                this.stompService.disconnect();
-                this.username = null;
-                this.router.navigate( ['/'] );
+                this.logoutSocial();
             },
             error => {
                 console.log(error._body);
             });
+    }
+    
+    logoutSocial() {
+        this.authService.signOut().then(() => {
+            this.clearSession();
+        },
+        error => {
+            this.clearSession();
+        });
+    }
+    
+    clearSession() {
+        sessionStorage.removeItem( "user" );
+        this.stompService.disconnect();
+        this.username = null;
+        this.router.navigate( ['/'] );
     }
 }

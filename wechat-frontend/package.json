@@ -23,6 +23,7 @@
     "@angular/platform-browser": "^4.0.0",
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@angular/router": "^4.0.0",
+    "angular4-social-login": "^1.0.12",
     "core-js": "^2.4.1",
     "ng2-stomp-service": "^1.2.2",
     "rxjs": "^5.1.0",

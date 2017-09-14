@@ -22,6 +22,7 @@ export class UsersListComponent implements OnInit {
     receiverUpdated = new EventEmitter<string>();
     
     users: Array<User> = [];
+    highlightedUsers: Array<string> = [];
     channel: string;
     receiver: string;
     
@@ -42,15 +43,27 @@ export class UsersListComponent implements OnInit {
     }
 
     startChatWithUser(user) {
-        console.log(user);
         const channelId = ChannelService.createChannel(this.username, user.username);
         this.channelService.refreshChannel(channelId);
         this.receiver = user.username;
+        this.highlightedUsers = this.highlightedUsers.filter(u => u !== user.username);
         this.receiverUpdated.emit(user.username);
     }
     
     getOtherUsers(): Array<User> {
         return this.users.filter(user => user.username !== this.username);
+    }
+    
+    getUserItemBackground(user): string {
+        if (user.username === this.receiver) {
+            return 'rgba(170,170,170, 0.2)';
+        }
+        
+        if (this.highlightedUsers.indexOf(user.username) >= 0) {
+            return 'rgba(232,157,27, 0.6)';
+        }
+        
+        return 'rgba(80,80,80, 0.2)';
     }
     
     initUserEvents() {
@@ -97,7 +110,7 @@ export class UsersListComponent implements OnInit {
     
     showNotification(message: Message) {
         let snackBarRef = this.snackBar.open('New message from ' + message.sender, 'Show', {duration: 3000});
-        
+        this.highlightedUsers.push(message.sender);
         snackBarRef.onAction().subscribe(() => {
             this.receiver = message.sender;
             this.receiverUpdated.emit(message.sender);
