@@ -52,4 +52,10 @@ public class ConnectionController {
 	public Iterable<User> findConnectedUsers() {
 		return userDao.findAll();
 	}
+	
+	@RequestMapping(value = "/clearAll", method = RequestMethod.GET)
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void clearAll() {
+		userDao.deleteAll();
+	}
 }

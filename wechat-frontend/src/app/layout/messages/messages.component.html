@@ -1,5 +1,5 @@
-<div id="msg-container" style="width: 100%; min-height: 480px;" class="message-col">
-	<md-list class="message-container">
+<div style="width: 100%; min-height: 480px;" class="message-col">
+	<md-list id="msg-container" class="message-container">
 	 	<md-list-item *ngFor="let message of filteredMessages" 
 	 		class="message-item" [style.background]="message.sender === username ? 'rgba(80,150,220, 0.4)':'rgba(150,150,150, 0.3)'">
 	    <md-icon md-list-icon>chat</md-icon>

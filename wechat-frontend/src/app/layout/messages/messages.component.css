@@ -1,6 +1,5 @@
 .message-col {
 	vertical-align: top;
-	overflow-y: auto; 
 }
 
 .cell-border {
@@ -15,6 +14,8 @@
 }
 
 .message-container {
+	overflow-y: auto;
+	height: 480px;
 }
 
 .message-input {
