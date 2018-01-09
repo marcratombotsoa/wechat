@@ -12,7 +12,12 @@ public class ChatController {
 
 	@Autowired
 	private SimpMessagingTemplate template;
-	
+
+	/**
+	 * Sends a message to its destination channel
+	 *
+	 * @param message
+	 */
 	@MessageMapping("/messages")
     public void handleMessage(Message message) {
 		template.convertAndSend("/channel/chat/" + message.getChannel(), message);
