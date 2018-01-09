@@ -5,7 +5,7 @@ import { StompService } from 'ng2-stomp-service';
 import { ChannelService } from '../../shared/service/channel.service';
 import { settings } from '../../shared/util/settings';
 import { Message } from '../../shared/model/message';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { MessageService } from "app/shared/service/message.service";
 
 @Component( {
@@ -15,19 +15,19 @@ import { MessageService } from "app/shared/service/message.service";
 } )
 export class UsersListComponent implements OnInit {
 
-    @Input() 
+    @Input()
     username: string;
-    
+
     @Output()
     receiverUpdated = new EventEmitter<string>();
-    
+
     users: Array<User> = [];
     highlightedUsers: Array<string> = [];
     channel: string;
     receiver: string;
-    
+
     constructor(private userService: UserService, private stompService: StompService,
-            private channelService: ChannelService, private snackBar: MdSnackBar
+            private channelService: ChannelService, private snackBar: MatSnackBar
             , private messageService: MessageService) {
     }
 
@@ -38,7 +38,7 @@ export class UsersListComponent implements OnInit {
                 this.initUserEvents();
             }
         );
-        
+
         this.channelService.getChannel().subscribe(channel => this.channel = channel);
     }
 
@@ -49,23 +49,23 @@ export class UsersListComponent implements OnInit {
         this.highlightedUsers = this.highlightedUsers.filter(u => u !== user.username);
         this.receiverUpdated.emit(user.username);
     }
-    
+
     getOtherUsers(): Array<User> {
         return this.users.filter(user => user.username !== this.username);
     }
-    
+
     getUserItemBackground(user): string {
         if (user.username === this.receiver) {
             return 'rgba(170,170,170, 0.2)';
         }
-        
+
         if (this.highlightedUsers.indexOf(user.username) >= 0) {
             return 'rgba(232,157,27, 0.6)';
         }
-        
+
         return 'rgba(80,80,80, 0.2)';
     }
-    
+
     initUserEvents() {
         this.stompService.startConnect().then(
             () => {
@@ -76,7 +76,7 @@ export class UsersListComponent implements OnInit {
                        this.subscribeToOtherUser(res);
                    }
                });
-              
+
                this.stompService.subscribe('/channel/logout', res => {
                    this.users = this.users.filter(item => item.username !== res.username);
                    const channelId = ChannelService.createChannel(this.username, res.username);
@@ -85,29 +85,29 @@ export class UsersListComponent implements OnInit {
                        this.channelService.removeChannel();
                    }
                });
-       
+
                this.subscribeToOtherUsers(this.users, this.username);
             });
     }
-    
+
     subscribeToOtherUsers(users, username) {
         let filteredUsers:Array<any> = users.filter(user => username !== user.username);
         filteredUsers.forEach(user => this.subscribeToOtherUser(user));
     }
-    
+
     subscribeToOtherUser(otherUser): string {
         const channelId = ChannelService.createChannel(this.username, otherUser.username);
         this.stompService.subscribe('/channel/chat/' + channelId, res => {
             this.messageService.pushMessage(res);
-            
+
             if (res.channel !== this.channel) {
                 this.showNotification(res);
             }
         });
-        
+
         return channelId;
     }
-    
+
     showNotification(message: Message) {
         let snackBarRef = this.snackBar.open('New message from ' + message.sender, 'Show', {duration: 3000});
         this.highlightedUsers.push(message.sender);

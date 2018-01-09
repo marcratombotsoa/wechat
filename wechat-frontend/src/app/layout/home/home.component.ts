@@ -27,18 +27,15 @@ export class HomeComponent implements OnInit {
             queue: {'init': false}
         });
     }
-    
     ngOnInit() {
         this.username = sessionStorage.getItem( "user" );
         if ( this.username == null || this.username === '' ) {
             this.router.navigate( ['/'] );
         }
     }
-    
     onReceiverChange(event) {
         this.receiver = event;
     }
-    
     logout() {
         this.userService.logout({'id': null, 'username': this.username})
         .subscribe(
@@ -49,7 +46,6 @@ export class HomeComponent implements OnInit {
                 console.log(error._body);
             });
     }
-    
     logoutSocial() {
         this.authService.signOut().then(() => {
             this.clearSession();
@@ -58,9 +54,8 @@ export class HomeComponent implements OnInit {
             this.clearSession();
         });
     }
-    
     clearSession() {
-        sessionStorage.removeItem( "user" );
+        sessionStorage.removeItem( 'user' );
         this.stompService.disconnect();
         this.username = null;
         this.router.navigate( ['/'] );

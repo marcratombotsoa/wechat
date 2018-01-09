@@ -1,8 +1,8 @@
-<md-list>
-  	<md-list-item *ngFor="let user of getOtherUsers()" class="user-item"
+<mat-list>
+  	<mat-list-item *ngFor="let user of getOtherUsers()" class="user-item"
   		[style.background]="getUserItemBackground(user)"
   		 (click)="startChatWithUser(user)">
-	    <md-icon md-list-icon>person</md-icon>
-	    <h4 md-line>{{user.username}}</h4>
-	  </md-list-item>
-</md-list>
+	    <mat-icon mat-list-icon>person</mat-icon>
+	    <h4 mat-line>{{user.username}}</h4>
+	  </mat-list-item>
+</mat-list>

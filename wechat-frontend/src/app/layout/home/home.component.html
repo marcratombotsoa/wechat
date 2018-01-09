@@ -1,33 +1,33 @@
 <div class="main-container">
 	<div class="header-container">
-		<md-grid-list cols="3" rowHeight="100px">
-			<md-grid-tile>
+		<mat-grid-list cols="3" rowHeight="100px">
+			<mat-grid-tile>
 				<div style="position: absolute; left: 0px;">
 					<img src="assets/img/logo.png" height="80px">
 				</div>
-			</md-grid-tile>
-			<md-grid-tile>
+			</mat-grid-tile>
+			<mat-grid-tile>
 				<div *ngIf="receiver !== null && receiver !== undefined && receiver !== ''" class="receiver-header">Talk to {{receiver}}</div>
-			</md-grid-tile>
-			<md-grid-tile class="user-header">
-				<button md-raised-button>Welcome, {{username}}</button>
-				<button md-raised-button (click)="logout()">Logout</button>
-			</md-grid-tile>
-		</md-grid-list>
+			</mat-grid-tile>
+			<mat-grid-tile class="user-header">
+				<button mat-raised-button>Welcome, {{username}}</button>
+				<button mat-raised-button (click)="logout()">Logout</button>
+			</mat-grid-tile>
+		</mat-grid-list>
 	</div>
-	
-	<md-grid-list class="chat-table" cols="8" rowHeight="550" gutterSize="20">
-	  <md-grid-tile
+
+	<mat-grid-list class="chat-table" cols="8" rowHeight="550" gutterSize="20">
+	  <mat-grid-tile
 	  	  class="user-list-col wt-justify cell-border"
 	      [colspan]="2"
 	      [style.vertical-align]="'top'">
 			<wt-userlist [username]="username" class="user-container" (receiverUpdated)="onReceiverChange($event)">
 			</wt-userlist>
-	  </md-grid-tile>
-	  <md-grid-tile
+	  </mat-grid-tile>
+	  <mat-grid-tile
 	  	  class="wt-justify cell-border"
 	  	  [colspan]="6">
 	    	<wt-messages [username]="username" class="message-wrapper"></wt-messages>
-	  </md-grid-tile>
-	</md-grid-list>
+	  </mat-grid-tile>
+	</mat-grid-list>
 </div>
