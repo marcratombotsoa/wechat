@@ -38,6 +38,10 @@ public class Message {
 	@Column(name = "timestamp")
 	private Date timestamp;
 	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "read_date")
+	private Date readDate;
+
 	public Message() {
 		super();
 	}
@@ -88,5 +92,13 @@ public class Message {
 
 	public void setTimestamp(Date timestamp) {
 		this.timestamp = timestamp;
+	}
+
+	public Date getReadDate() {
+		return readDate;
+	}
+
+	public void setReadDate(Date readDate) {
+		this.readDate = readDate;
 	}
 }

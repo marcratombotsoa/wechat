@@ -15,8 +15,11 @@ public class User {
     @Column(name = "id")
 	private Long id;
 	
-	@Column(name = "username")
+	@Column(name = "username", unique = true)
 	private String username;
+
+	@Column(name = "connected", nullable = false)
+	private Boolean connected = false;
 
 	public User() {
 		super();
@@ -40,6 +43,14 @@ public class User {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public Boolean getConnected() {
+		return connected;
+	}
+
+	public void setConnected(Boolean connected) {
+		this.connected = connected;
 	}
 
 	@Override
