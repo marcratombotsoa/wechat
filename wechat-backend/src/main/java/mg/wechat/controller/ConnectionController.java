@@ -32,8 +32,8 @@ public class ConnectionController {
 	public ResponseEntity<?> login(@RequestBody User user) {
 		
 		try {
-			userService.connect(user);
-			template.convertAndSend("/channel/login", user);
+			User connectedUser = userService.connect(user);
+			template.convertAndSend("/channel/login", connectedUser);
 		} catch (UsernameAlreadyUsedException e) {
 			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
 		}
@@ -44,12 +44,18 @@ public class ConnectionController {
 	@RequestMapping(value = "/logout", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void logout(@RequestBody User user) {
-		userService.disconnect(user);
-		template.convertAndSend("/channel/logout", user);
+		User disconnectedUser = userService.disconnect(user);
+		template.convertAndSend("/channel/logout", disconnectedUser);
 	}
 	
 	@RequestMapping(value = "/listUsers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Iterable<User> findConnectedUsers() {
 		return userDao.findAll();
+	}
+	
+	@RequestMapping(value = "/clearAll", method = RequestMethod.GET)
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void clearAll() {
+		userDao.deleteAll();
 	}
 }

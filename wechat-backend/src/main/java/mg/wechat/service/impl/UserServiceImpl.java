@@ -19,19 +19,32 @@ public class UserServiceImpl implements UserService {
 		User dbUser = userDao.findByUsername(user.getUsername());
 		
 		if (dbUser != null) {
-			throw new UsernameAlreadyUsedException("The user " + user.getUsername() + " is already used.");
+
+			if (dbUser.getConnected()) {
+				throw new UsernameAlreadyUsedException("This user is already connected: " + dbUser.getUsername());
+			}
+
+			dbUser.setConnected(true);
+			return userDao.save(dbUser);
 		}
 		
+		user.setConnected(true);
 		return userDao.save(user);
 	}
 
 	@Override
-	public void disconnect(User user) {
+	public User disconnect(User user) {
 		if (user == null) {
-			return;
+			return null;
+		}
+
+		User dbUser = userDao.findByUsername(user.getUsername());
+		if (dbUser == null) {
+			return user;
 		}
 		
-		userDao.deleteByUsername(user.getUsername());
+		dbUser.setConnected(false);
+		return userDao.save(dbUser);
 	}
 
 }
