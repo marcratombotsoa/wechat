@@ -15,10 +15,15 @@ public class ChatController {
 
 	@Autowired
 	private SimpMessagingTemplate template;
-	
+
 	@Autowired
 	private MessageRepository messageRepository;
-	
+
+	/**
+	 * Sends a message to its destination channel
+	 *
+	 * @param message
+	 */
 	@MessageMapping("/messages")
     public void handleMessage(Message message) {
 		message.setTimestamp(new Date());
