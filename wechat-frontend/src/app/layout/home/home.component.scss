@@ -41,7 +41,7 @@
 	min-width: 100px;
 }
 
-::ng-deep md-grid-tile.wt-justify .mat-figure {
+::ng-deep mat-grid-tile.wt-justify .mat-figure {
     align-items: initial;  /*vertical alignment*/
     justify-content: initial;  /*horizontal alignment*/
 }

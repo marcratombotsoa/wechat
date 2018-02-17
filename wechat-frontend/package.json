@@ -30,6 +30,7 @@
     "sockjs-client": "^1.1.4",
     "stompjs": "^2.3.3",
     "ts-md5": "^1.2.2",
+    "typescript-fetch-api": "0.0.0",
     "zone.js": "^0.8.4"
   },
   "devDependencies": {

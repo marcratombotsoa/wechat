@@ -15,5 +15,4 @@ import { UsersListComponent } from './users-list.component';
     exports: [UsersListComponent]
 })
 export class UsersListModule {
-    
 }

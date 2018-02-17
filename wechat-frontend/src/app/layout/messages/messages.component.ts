@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Message } from '../../shared/model/message';
 import { StompService } from 'ng2-stomp-service';
-import { MessageService } from "app/shared/service/message.service";
-import { ChannelService } from "app/shared/service/channel.service";
+import { MessageService } from 'app/shared/service/message.service';
+import { ChannelService } from 'app/shared/service/channel.service';
 
 @Component({
   selector: 'wt-messages',
@@ -11,11 +11,10 @@ import { ChannelService } from "app/shared/service/channel.service";
 })
 export class MessagesComponent implements OnInit {
 
-    private messages: Array<Message> = [];
     private filteredMessages: Array<Message> = [];
     private newMessage: string;
     private channel: string;
-    
+
     @Input()
     private username: string;
 
@@ -23,12 +22,11 @@ export class MessagesComponent implements OnInit {
             , private channelService: ChannelService) { }
 
     ngOnInit() {
-      this.messages = [];
       this.channelService.getChannel().subscribe(channel => {
           this.channel = channel;
           this.filterMessages();
       });
-      
+
       this.messageService.getMessages().subscribe(messages => {
           this.filterMessages();
       });
@@ -47,9 +45,9 @@ export class MessagesComponent implements OnInit {
       this.filteredMessages = this.messageService.filterMessages(this.channel);
       this.scrollToBottom();
     }
-    
+
     scrollToBottom() {
-        var msgContainer = document.getElementById("msg-container");
+        const msgContainer = document.getElementById('msg-container');
         msgContainer.scrollTop = msgContainer.scrollHeight;
     }
 }

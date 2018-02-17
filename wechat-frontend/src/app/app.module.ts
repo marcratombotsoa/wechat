@@ -9,20 +9,20 @@ import { AppComponent } from './app.component';
 import { UserService } from './shared/service/user.service';
 import { ChannelService } from './shared/service/channel.service';
 import { StompService } from 'ng2-stomp-service';
-import { MessageService } from "app/shared/service/message.service";
+import { MessageService } from 'app/shared/service/message.service';
 
 import { SocialLoginModule, AuthServiceConfig
     , GoogleLoginProvider, FacebookLoginProvider
-    } from "angular4-social-login";
- 
-let config = new AuthServiceConfig([
+    } from 'angular4-social-login';
+
+const config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
-    provider: new GoogleLoginProvider("823898676621-427jhcjug96ijmbt9il0h9chd8norbdk.apps.googleusercontent.com")
+    provider: new GoogleLoginProvider('823898676621-427jhcjug96ijmbt9il0h9chd8norbdk.apps.googleusercontent.com')
   },
   {
     id: FacebookLoginProvider.PROVIDER_ID,
-    provider: new FacebookLoginProvider("131571760819154")
+    provider: new FacebookLoginProvider('131571760819154')
   }
 ]);
 
